@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BittiEinPrompti - Dein Prompt Generator</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5; color: #333; text-align: center;
+            margin: 0; padding: 20px;
+        }
+        .container { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; margin-top: 30px; }
+        .prompt-box {
+            background-color: #ffffff; border: 1px solid #ddd; border-radius: 12px;
+            padding: 25px; width: 320px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+        h1 { font-size: 2.5em; color: #1a1a1a; }
+        .box-header-wrapper { min-height: 45px; display: flex; align-items: center; width: 100%; }
+        .title-container { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .title-container h2, h2 { margin: 0; font-size: 1.5em; color: #0056b3; }
+        .output {
+            background-color: #f9f9f9; border: 1px dashed #ccc; border-radius: 8px;
+            padding: 15px; margin-top: 15px; min-height: 120px; display: flex;
+            align-items: center; justify-content: center; font-size: 1.1em;
+            color: #555; font-style: italic; line-height: 1.4;
+        }
+        .musiker-output-styling {
+            flex-direction: column; justify-content: center; align-items: flex-start; text-align: left;
+        }
+        button {
+            background-color: #007bff; color: white; border: none; border-radius: 8px;
+            padding: 12px 20px; font-size: 1em; font-weight: bold; cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease; margin-top: 15px;
+        }
+        button:hover { background-color: #0056b3; }
+        button:active { transform: scale(0.98); }
+        select { font-size: 1em; padding: 5px; border-radius: 5px; border: 1px solid #ccc; }
+
+        /* --- NEU: Footer Styling --- */
+        footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+        .footer-credit {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.2s ease;
+        }
+        .social-btn svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            fill: currentColor;
+        }
+        .twitch-btn { background-color: #9146FF; }
+        .twitch-btn:hover { background-color: #772ce8; }
+        .discord-btn { background-color: #5865F2; }
+        .discord-btn:hover { background-color: #4752c4; }
+
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <h1>BittiEinPrompti</h1>
+        <div class="container">
+            <!-- Boxen wie zuvor -->
+            <div class="prompt-box"><div><div class="box-header-wrapper"><h2>Klassischer Prompt</h2></div><div id="classic-output" class="output">Hier erscheint dein Prompt...</div></div><button onclick="generateClassicPrompt()">Neue Idee generieren</button></div>
+            <div class="prompt-box"><div><div class="box-header-wrapper"><div class="title-container"><h2>Mischwesen</h2><select id="mischwesen-count"><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option></select></div></div><div id="mischwesen-output" class="output">Hier erscheint dein Mischwesen...</div></div><button onclick="generateMischwesen()">Neues Wesen generieren</button></div>
+            <div class="prompt-box"><div><div class="box-header-wrapper"><h2>Wortwörtlich-Modus</h2></div><div id="wortwoertlich-output" class="output">Hier erscheint ein Sprichwort...</div></div><button onclick="generateWortwoertlichPrompt()">Neues Sprichwort</button></div>
+            <div class="prompt-box"><div><div class="box-header-wrapper"><h2>Artist-Modus</h2></div><div id="kuenstler-output" class="output">Hier erscheint ein Künstler...</div></div><button onclick="generateKuenstlerPrompt()">Neuen Künstler vorschlagen</button></div>
+            <div class="prompt-box"><div><div class="box-header-wrapper"><h2>Musiker-Modus</h2></div><div id="musiker-output" class="output musiker-output-styling">Hier erscheint dein Musiker-Prompt...</div></div><button onclick="generateMusikerPrompt()">Neuen Song generieren</button></div>
+        </div>
+    </div>
+
+    <!-- NEU: Der komplette Footer-Bereich -->
+    <footer>
+        <p class="footer-credit">Erstellt von Kasmudan | Feedback oder Fehler gefunden?</p>
+        <div class="social-links">
+            <a href="https://www.twitch.tv/kasmudan" target="_blank" rel="noopener noreferrer" class="social-btn twitch-btn">
+                <svg viewBox="0 0 24 24" role="img"><path d="M11.571 4.714h1.715v5.143H11.57zM15.429 4.714h1.714v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0H6zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714v9.429z"/></svg>
+                <span>Twitch</span>
+            </a>
+            <a href="https://kasmudan.de/discord" target="_blank" rel="noopener noreferrer" class="social-btn discord-btn">
+                <svg viewBox="0 0 24 24" role="img"><path d="M20.222 0H3.778A3.778 3.778 0 0 0 0 3.778v16.444A3.778 3.778 0 0 0 3.778 24h12.667l-1.334-2.222H3.778V3.778h16.444v10.667h2.222V3.778A3.778 3.778 0 0 0 20.222 0zM8.31 14.242c-1.32 0-2.38-1.12-2.38-2.5s1.06-2.5 2.38-2.5c1.32 0 2.38 1.12 2.38 2.5s-1.06 2.5-2.38 2.5zm7.38 0c-1.32 0-2.38-1.12-2.38-2.5s1.06-2.5 2.38-2.5c1.32 0 2.38 1.12 2.38 2.5s-1.06 2.5-2.38 2.5z"/></svg>
+                <span>Discord</span>
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        // Der JavaScript-Teil bleibt komplett unverändert.
+        function getRandomElement(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+        function setOutput(elementId, text) { const el = document.getElementById(elementId); el.innerHTML = text; el.style.fontStyle = 'normal'; }
+        const adjektive = ["Ein alter", "Ein winziger", "Ein geheimnisvoller", "Ein leuchtender", "Ein vergessener", "Ein chaotischer", "Ein eleganter", "Ein rostiger", "Ein singender", "Ein schwebender", "Ein versteckter", "Ein gläserner", "Ein kybernetischer", "Ein flauschiger", "Ein ohrenbetäubender", "Ein minimalistischer", "Ein barocker", "Ein nasser", "Ein explodierender", "Ein sanfter", "Ein geometrischer", "Ein gestreifter", "Ein quadratischer", "Ein unsichtbarer", "Ein philosophischer", "Ein hungriger", "Ein schläfriger", "Ein nervöser", "Ein mutiger", "Ein feiger", "Ein ehrlicher", "Ein gestohlener", "Ein radioaktiver", "Ein antiker", "Ein verpixelter", "Ein hölzerner", "Ein versteinerter", "Ein flüssiger", "Ein grimmiger", "Ein fröhlicher", "Ein einsamer"];
+        const substantive = ["Roboter", "Bibliothekar", "Pirat", "Pilz", "Leuchtturm", "Drache", "Zeitmaschine", "Unterseeboot", "Wolkenkratzer", "Gummibärchen", "Kaffeetasse", "Planet", "Schatten", "Echo", "Horizont", "Wasserfall", "Regenschirm", "Schreibtischlampe", "Kaktus", "Astronaut", "Gedanke", "Traum", "Labyrinth", "Spiegel", "Schlüssel", "Uhrwerk", "Tempel", "Dschungel", "Gletscher", "Vulkan", "Wüste", "Raumschiff", "Bahnhof", "Jahrmarkt", "Zirkus", "Teleskop", "Mikroskop", "Schachfigur", "Brief", "Flaschenpost", "Kompass"];
+        const aktivitaeten = ["verkauft gestohlene Träume.", "sucht den Sinn des Lebens in einer Socke.", "malt die Zukunft mit unsichtbarer Tinte.", "führt ein tiefes Gespräch mit einer Parkuhr.", "baut eine Rakete aus Pappe.", "erfindet eine neue Farbe.", "reist auf einem Skateboard durch die Zeit.", "organisiert eine Party für Geister.", "erzählt Witze in einer fremden Sprache.", "repariert eine kaputte Uhr mit Honig.", "sucht nach dem letzten unentdeckten Ort der Welt.", "schreibt einen Brief an den Mond.", "lernt zu fliegen ohne Flügel.", "dirigiert ein Orchester aus Küchengeräten.", "versteckt Geheimnisse im Quellcode des Universums.", "übersetzt das Schweigen der Fische.", "tanzt mit seinem eigenen Schatten Walzer.", "züchtet quadratische Tomaten.", "findet ein Portal in einer Pfütze.", "schmuggelt Sonnenuntergänge über die Grenze.", "erfindet eine Entschuldigung für die Schwerkraft.", "liest die Gedanken von Steinen.", "tauscht seinen Namen gegen ein ungelöstes Rätsel.", "surft auf einer Schallwelle.", "weint rückwärts."];
+        const substantiveMischwesen = ["Fuchs", "Adler", "Klavier", "Qualle", "Kristall", "Nebel", "Statue", "Motorrad", "Kamera", "Buch", "Brücke", "Sanduhr", "Vulkan", "Gletscher", "Satellit", "Spiegel", "Flaschenpost", "Grammophon", "Korallenriff", "Windmühle", "Oktopus", "Glühbirne", "Schallplatte", "Origami-Kranich", "Kaleidoskop", "Globus", "Feder", "Tintenfass", "Würfel", "Fabrik", "Gewitter", "Nebelwand", "Wurzel", "Schraubenschlüssel", "Rüstung", "Laterne", "Fahrrad", "Treppe", "Fernseher", "Wolke", "Skelett"];
+        const sprichwoerter = ["Tomaten auf den Augen haben", "Den Nagel auf den Kopf treffen", "Ein Brett vor dem Kopf haben", "Jemandem auf den Wecker gehen", "Auf Tuchfühlung gehen", "Ins Gras beißen", "Seinen Senf dazugeben", "Schwein haben", "Krokodilstränen weinen", "Etwas durch die Blume sagen", "Haare auf den Zähnen haben", "Perlen vor die Säue werfen", "Den Teufel an die Wand malen", "Das Eis brechen", "Auf dem Holzweg sein", "Jemandem einen Bären aufbinden", "Auch nur mit Wasser kochen", "Da beißt die Maus keinen Faden ab", "Zwei Fliegen mit einer Klappe schlagen", "Die Katze im Sack kaufen", "Eine Extrawurst gebraten haben wollen", "Einen Korb bekommen", "Himmel und Hölle in Bewegung setzen", "Kalter Kaffee", "Leben wie Gott in Frankreich", "Etwas an den Nagel hängen", "Öl ins Feuer gießen", "Auf großem Fuß leben", "Das fünfte Rad am Wagen sein", "Jemandem die Daumen drücken"];
+        const kuenstler = ["Frida Kahlo (Malerin)", "Banksy (Street Art)", "Leonardo da Vinci (Universalgenie)", "Yayoi Kusama (Installationskünstlerin)", "Hayao Miyazaki (Animator)", "Zaha Hadid (Architektin)", "Auguste Rodin (Bildhauer)", "Vincent van Gogh (Maler)", "Cindy Sherman (Fotografin)", "Salvador Dalí (Surrealist)", "Kara Walker (Scherenschnittkünstlerin)", "Rembrandt (Maler)", "Georgia O'Keeffe (Malerin)", "Ai Weiwei (Konzeptkünstler)", "Takashi Murakami (Superflat)", "Hilma af Klint (Abstrakte Malerin)", "Jean-Michel Basquiat (Neo-Expressionist)", "Marina Abramović (Performancekünstlerin)", "Olafur Eliasson (Installationskünstler)", "Käthe Kollwitz (Grafikerin)", "Albrecht Dürer (Maler, Grafiker)", "Hokusai (Ukiyo-e-Künstler)", "Niki de Saint Phalle (Bildhauerin)", "Gerhard Richter (Maler)", "Bridget Riley (Op Art)", "Ansel Adams (Fotograf)", "Louise Bourgeois (Bildhauerin)"];
+        const bandsUndSongs = { "Die Ärzte": ["Schrei nach Liebe", "Junge", "Westerland"], "Kraftwerk": ["Das Model", "Autobahn", "Die Roboter"], "Seeed": ["Ding", "Aufstehn!", "Augenbling"], "AnnenMayKantereit": ["Pocahontas", "Barfuß am Klavier", "Oft gefragt"], "Cro": ["Easy", "Traum", "Bye Bye"], "Daft Punk": ["Around the World", "One More Time", "Harder, Better, Faster, Stronger"], "Queen": ["Bohemian Rhapsody", "Don't Stop Me Now", "Another One Bites the Dust"], "Gorillaz": ["Feel Good Inc.", "Clint Eastwood", "On Melancholy Hill"], "Florence + The Machine": ["Dog Days Are Over", "Shake It Out", "You've Got The Love"], "Alt-J": ["Breezeblocks", "Taro", "Left Hand Free"], "Deichkind": ["Leider geil", "Remmidemmi (Yippie Yippie Yeah)", "Bück dich hoch"], "Feine Sahne Fischfilet": ["Komplett im Arsch", "Warten auf das Meer", "Zuhause"], "The Notorious B.I.G.": ["Juicy", "Hypnotize", "Big Poppa"], "Nirvana": ["Smells Like Teen Spirit", "Come As You Are", "Lithium"], "Red Hot Chili Peppers": ["Californication", "Under the Bridge", "Snow (Hey Oh)"], "Muse": ["Uprising", "Starlight", "Knights of Cydonia"] };
+        function generateClassicPrompt() { setOutput('classic-output', `${getRandomElement(adjektive)} ${getRandomElement(substantive)} ${getRandomElement(aktivitaeten)}`); }
+        function generateMischwesen() { const c = parseInt(document.getElementById('mischwesen-count').value, 10); const r=new Set(); while(r.size<c){r.add(getRandomElement(substantiveMischwesen))}; setOutput('mischwesen-output', Array.from(r).join(' x '));}
+        function generateWortwoertlichPrompt() { setOutput('wortwoertlich-output', getRandomElement(sprichwoerter)); }
+        function generateKuenstlerPrompt() { setOutput('kuenstler-output', getRandomElement(kuenstler)); }
+        function generateMusikerPrompt() { const b = Object.keys(bandsUndSongs); const rb = getRandomElement(b); const rs = getRandomElement(bandsUndSongs[rb]); const p = `<div><strong>Band:</strong> ${rb}</div><div><strong>Song:</strong> ${rs}</div>`; setOutput('musiker-output', p); }
+    </script>
+</body>
+</html>
